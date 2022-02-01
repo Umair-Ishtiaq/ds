@@ -1,0 +1,147 @@
+#include<iostream>
+using namespace std;
+struct BST
+{
+	int num=0;
+	BST *Left=NULL;
+	BST *Right=NULL;
+};
+
+void Insert(BST* &Node, int num)
+{
+	if (Node == NULL)//first NOde
+	{
+		Node = new BST;
+		Node->num = num;
+		return;
+	}
+	else if (num < Node->num)//left NOde
+	{
+		if (Node->Left == NULL)
+		{
+			Node->Left = new BST;
+			Node->Left->num = num;
+			return;
+		}
+		Insert(Node->Left, num);
+	}
+	else if (num> Node->num)// Right node
+	{
+		if (Node->Right == NULL)
+		{
+			Node->Right = new BST;
+			Node->Right->num = num;
+			return;
+		}
+		Insert(Node->Right, num);
+	}
+	
+}
+void Inorder(BST *Node)
+{
+	if (Node == NULL)
+	{
+		return;
+	}
+	Inorder(Node->Left);
+	cout << Node->num <<" , ";
+	Inorder(Node->Right);
+}
+void Postorder(BST *Node)
+{
+	if (Node == NULL)
+	{
+		return;
+	}
+	Postorder(Node->Left);
+	Postorder(Node->Right);
+	cout << Node->num << " , " ;
+}
+void Preorder(BST *Node)
+{
+	if (Node == NULL)
+	{
+		return;
+	}
+	cout << Node->num << " , ";
+	Preorder(Node->Left);
+	Preorder(Node->Right);
+}
+
+void Search(BST *Node,int x)
+{
+	if (x == Node->num)
+	{
+		cout << "Found " << endl;
+		return;
+	}
+	else if (x < Node->num)
+	{
+		Search(Node->Left, x);
+	}
+	else
+	{
+		Search(Node->Right, x);
+	}
+}
+int main()
+{
+	BST *Root = NULL;
+	int choice;
+	int option;
+	do
+	{
+		cout << "1 - Insert" << endl;
+		cout << "2 - In-Order" << endl;
+		cout << "3 - Post-Order" << endl;
+		cout << "4 - Pre-Order" << endl;
+		cout << "5 - Search" << endl;
+		cout << "6 - Exit" << endl;
+		cout << "Choice : ";
+		cin >> choice;
+		system("cls");
+		switch (choice)
+		{
+		case 1:
+		{
+			
+			int num;
+			cout << "Enter Number : ";
+			cin >> num;
+			Insert(Root,num);
+			break;
+		}
+		case 2:
+		{
+			Inorder(Root);
+			break;
+		}
+		case 3:
+		{
+			Postorder(Root);
+			break;
+		}
+		case 4:
+		{
+			Preorder(Root);
+			break;
+		}
+		case 5:
+		{
+			int x;
+			cout << "Number to Search";
+			cin >> x;
+			Search(Root,x);
+			break;
+		}
+		case 6:
+		{
+			exit(-1);
+			break;
+		}
+
+		}
+	} while (1);
+
+
+}
