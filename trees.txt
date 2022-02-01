@@ -1,0 +1,419 @@
+
+
+task 1: 
+
+
+#include<iostream>
+using namespace std;
+struct tree
+{
+	int num;
+	tree* left = NULL;
+	tree*right = NULL;
+};
+
+void insert(tree* &root,int x)
+{
+
+
+	if (root == NULL)
+	{
+		tree *nn = new tree;
+		nn->num = x;
+		root = nn;
+		return;
+	}
+	else
+	{
+		if (x > root->num
+			)
+		{
+			insert(root->left,x);
+		}
+		else
+		{
+			insert(root->right, x);
+		}
+	}
+}
+void inorder(tree* n)
+{
+	if (n == NULL)
+		return;
+	
+	inorder(n->left);
+	cout << n->num <<endl;
+	inorder(n->right);
+}
+void postorder(tree* n)
+{
+	if (n == NULL)
+		return;
+
+	inorder(n->left);
+	inorder(n->right);
+	cout << n->num << endl;
+}
+void preorder(tree* n)
+{
+	if (n == NULL)
+		return;
+
+	cout << n->num << endl;
+	inorder(n->left);
+	inorder(n->right);
+}
+
+void search(tree* &n,int x)
+{
+	if (n == NULL) {
+		cout << "Not Found!" << endl;
+		return;
+	}
+		
+	if (n->num == x) {
+		cout << "Found!" << endl;
+		return;
+	}
+
+	search(n->left,x);
+	search(n->right,x);
+}
+
+int main()
+{
+	tree*root = NULL;
+	int num = 0;
+	int opt;
+	do
+	{
+		cout << "1.insert\n";
+		cout << "2.inorder\n";
+		cout << "3.postorder\n";
+		cout << "4.preorder\n";
+		cout << "5.search\n";
+		cout << "6.exit\n";
+		cin >> opt;
+		switch (opt)
+		{
+		case 1:
+			cout << "Enter number : ";
+			cin >> num;
+			insert(root, num);
+			break;
+		case 2:
+			inorder(root);
+			break;
+		case 3:
+			postorder(root);
+			break;
+		case 4:
+			preorder(root);
+			break;
+		case 5: {
+			cout << "Enter number : ";
+			cin >> num;
+			search(root, num);
+			break; 
+		}
+		case 6:
+			exit(-1);
+		}
+		system("pause");
+		system("cls");
+	} while (1);
+}
+
+
+task 2:
+
+#include<iostream>
+using namespace std;
+struct tree
+{
+	int num;
+	tree* left = NULL;
+	tree*right = NULL;
+};
+
+void insert(tree* &root,int x)
+{
+
+
+	if (root == NULL)
+	{
+		tree *nn = new tree;
+		nn->num = x;
+		root = nn;
+		return;
+	}
+	else
+	{
+		if (x > root->num
+			)
+		{
+			insert(root->left,x);
+		}
+		else
+		{
+			insert(root->right, x);
+		}
+	}
+}
+void inorder(tree* n)
+{
+	if (n == NULL)
+		return;
+	
+	inorder(n->left);
+	cout << n->num <<endl;
+	inorder(n->right);
+}
+void postorder(tree* n)
+{
+	if (n == NULL)
+		return;
+
+	inorder(n->left);
+	inorder(n->right);
+	cout << n->num << endl;
+}
+void preorder(tree* n)
+{
+	if (n == NULL)
+		return;
+	cout << n->num << endl;
+	inorder(n->left);
+	inorder(n->right);
+}
+
+void search(tree* &n,int x)
+{
+	if (n == NULL) {
+		cout << "Not Found!" << endl;
+		return;
+	}
+		
+	if (n->num == x) {
+		cout << "Found!" << endl;
+		return;
+	}
+
+	search(n->left,x);
+	search(n->right,x);
+}
+void display_less(tree* &n, int x)
+{
+	if (n == NULL) {
+		cout << "Not Found!" << endl;
+		return;
+	}else if (n->num < x) {
+		cout << n->num <<"  "<< endl;
+	
+	}
+	else {
+		display_less(n->left, x);
+		display_less(n->right, x);
+	}
+}
+
+int main()
+{
+	tree*root = NULL;
+	int num = 0;
+	int opt;
+	do
+	{
+		cout << "1.insert\n";
+		cout << "2.inorder\n";
+		cout << "3.postorder\n";
+		cout << "4.preorder\n";
+		cout << "5.search\n";
+		cout << "6.exit\n";
+		cin >> opt;
+		switch (opt)
+		{
+		case 1:
+			while (1) {
+				cout << "Enter number : ";
+				cin >> num;
+				if (num < 0) {
+					break;
+				}
+				insert(root, num);
+			}
+			break;
+		case 2:
+			inorder(root);
+			break;
+		case 3:
+			postorder(root);
+			break;
+		case 4:
+			preorder(root);
+			break;
+		case 5: {
+			cout << "Enter number : ";
+			cin >> num;
+			search(root, num);
+			break; 
+		}
+		case 7: {
+			cout << "Enter number : ";
+			cin >> num;
+			display_less(root, num);
+			break;
+		}
+		case 6:
+			exit(-1);
+		}
+		system("pause");
+		system("cls");
+	} while (1);
+}
+
+task 3:
+
+#include<iostream>
+#include<string>
+using namespace std;
+struct tree
+{
+	int key = 0;
+	string num;
+	tree* left = NULL;
+	tree*right = NULL;
+};
+
+int key = 0;
+
+void insert(tree* &root,string x,int k)
+{
+
+
+	if (root == NULL)
+	{
+
+		tree *nn = new tree;
+		nn->num = x;
+		::key++;
+		nn->key = k;
+		root = nn;
+		return;
+	}
+	else
+	{
+		if (k > root->key)
+		{
+			insert(root->left,x,k);
+		}
+		else
+		{
+			insert(root->right, x,k);
+		}
+	}
+}
+void inorder(tree* n)
+{
+	if (n == NULL)
+		return;
+	
+	inorder(n->left);
+	cout << n->num <<endl;
+	inorder(n->right);
+}
+void postorder(tree* n)
+{
+	if (n == NULL)
+		return;
+
+	inorder(n->left);
+	inorder(n->right);
+	cout << n->num << endl;
+}
+void preorder(tree* n)
+{
+	if (n == NULL)
+		return;
+
+	cout << n->num << endl;
+	inorder(n->left);
+	inorder(n->right);
+}
+
+void search(tree* &n,int x)
+{
+	if (n == NULL) {
+		cout << "Not Found!" << endl;
+		return;
+	}
+		
+	if (n->key == x) {
+		cout << "Found!" << endl;
+		return;
+	}
+
+	search(n->left,x);
+	search(n->right,x);
+}
+void display_less(tree* &n, int x)
+{
+	if (n == NULL) {
+		cout << "Not Found!" << endl;
+		return;
+	}else if (n->key < x) {
+		cout << n->num <<"  "<< endl;
+	
+	}
+	else {
+		display_less(n->left, x);
+		display_less(n->right, x);
+	}
+}
+
+int main()
+{
+	tree*root = NULL;
+	string num = "none";
+	int opt;
+	do
+	{
+		cout << "1.insert\n";
+		cout << "2.inorder\n";
+		cout << "3.postorder\n";
+		cout << "4.preorder\n";
+		cout << "5.search\n";
+		cout << "6.exit\n";
+		cin >> opt;
+		switch (opt)
+		{
+		case 1:
+
+				cout << "Enter number : ";
+				cin >> num;
+				insert(root,num, ::key++);
+
+			break;
+		case 2:
+			inorder(root);
+			break;
+		case 3:
+			postorder(root);
+			break;
+		case 4:
+			preorder(root);
+			break;
+		case 5: {
+			int n = 0;
+			cout << "Enter number : ";
+			cin >> n;
+			search(root,n );
+			break; 
+		}
+		case 6:
+			exit(-1);
+		}
+		system("pause");
+		system("cls");
+	} while (1);
+}

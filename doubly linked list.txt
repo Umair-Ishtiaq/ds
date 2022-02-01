@@ -1,0 +1,234 @@
+#include<iostream>
+using namespace std;
+struct list
+{
+	int num;
+	list* next;
+	list* prev;
+};
+list* head;
+bool isempty()
+{
+	if (head == NULL)
+		return true;
+	else
+		return false;
+}
+void i_f()
+{
+	list* nn = new list;
+	cout << "Enter data : ";
+	cin >> nn->num;
+	nn->next = NULL;
+	nn->prev = NULL;
+	if (head == NULL)
+	{
+		head = nn;
+	}
+	else
+	{
+		head->prev = nn;
+		nn->next = head;
+		head = nn;
+	}
+}
+void i_b()
+{
+	list* nn = new list;
+	cout << "Enter data : ";
+	cin >> nn->num;
+	nn->next = NULL;
+	nn->prev = NULL;
+	if (head == NULL)
+	{
+		head = nn;
+	}
+	else
+	{
+		list* temp = head;
+		while (temp->next != NULL)
+		{
+			temp = temp->next;
+		}
+		nn->prev = temp;
+		temp->next = nn;
+	}
+}
+void s_i()
+{
+	list* nn = new list;
+	cout << "Enter data : ";
+	cin >> nn->num;
+	nn->next = NULL;
+	nn->prev = NULL;
+	if (head == NULL)
+	{
+		head = nn;
+	}
+	else
+	{
+		list* ap = head;
+		list* pp = NULL;
+		while (ap != NULL && nn->num > ap->num)
+		{
+			pp = ap;
+			ap = ap->next;
+		}
+		if (pp == NULL)
+		{
+			nn->next = head;
+			head = nn;
+		}
+		else if (ap == NULL)
+		{
+			nn->prev = pp;
+			pp->next = nn;
+			nn = ap;
+		}
+		else
+		{
+			ap->prev = nn;
+			nn->next = ap;
+			pp->next = nn;
+		}
+	}
+}
+void d_f()
+{
+	list* temp = head;
+	if (temp->next == NULL)
+	{
+		head = NULL;
+		delete temp;
+	}
+	else
+	{ 
+		head = head->next;
+		head->prev = NULL;
+		delete temp;
+	}
+}
+void d_b()
+{
+	list* ap = head;
+	list* pp = head;
+	if (ap->next == NULL)
+	{
+		head = NULL;
+		delete ap;
+	}
+	else
+	{
+		while (ap->next != NULL)
+		{
+			pp = ap;
+			ap = ap->next;
+		}
+		pp->next = NULL;
+		delete ap;
+	}
+}
+void s_d()
+{
+	if (isempty())
+		cout << "list is empty";
+	else
+	{
+		int num;
+		cout << "Enter num to del : ";
+		cin >> num;
+		list* ap = head;
+		list* pp = NULL;
+		while (ap != NULL && num != ap->num)
+		{
+			pp = ap;
+			ap = ap->next;
+		}
+		if (pp == NULL)
+		{
+			head = head->next;
+			delete ap;
+		}
+		else if (ap == NULL)
+		{
+			cout << "num not found\n";
+		}
+		else if (ap->next == NULL)
+		{
+			pp->next = NULL;
+			delete ap;
+		}
+		else
+		{
+			pp->next = ap->next;
+			ap->next->prev = pp;
+			delete ap;
+		}
+	}
+}
+void display()
+{
+	list* temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->num << " , ";
+		temp = temp->next;
+	}
+}
+int main()
+{
+	int opt;
+	do
+	{
+		cout << "1. front insert\n";
+		cout << "2. back insert\n";
+		cout << "3. sorted insert\n";
+		cout << "4. front delete\n";
+		cout << "5. back delete\n";
+		cout << "6. sorted delete\n";
+		cout << "7. display\n";
+		cout << "8. Exit\n";
+		cout << "choice : ";
+		cin >> opt;
+		switch (opt)
+		{
+		case 1:
+			i_f();
+			system("pause");
+			system("cls");
+			break;
+		case 2:
+			i_b();
+			system("pause");
+			system("cls");
+			break;
+		case 3:
+			s_i();
+			system("pause");
+			system("cls");
+			break;
+		case 4:
+			d_f();
+			system("pause");
+			system("cls");
+			break;
+		case 5:
+			d_b();
+			system("pause");
+			system("cls");
+			break;
+		case 6:
+			s_d();
+			system("pause");
+			system("cls");
+			break;
+		case 7:
+			display();
+			system("pause");
+			system("cls");
+			break;
+		case 8:
+			exit(-1);
+		}
+	} while (1);
+}
